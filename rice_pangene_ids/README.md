@@ -15,3 +15,8 @@ Script Dependencies:
 - argparse (https://pypi.org/project/argparse/)
 - mysql.connector (https://pypi.org/project/mysql-connector-python/)
 - pandas (https://pypi.org/project/pandas/)
+
+
+## **rapid_release_fixes.py**
+
+Code used to fix datacheck issues in plants-production-1 rice schemas for rapid release 65 handover.
