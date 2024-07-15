@@ -241,20 +241,20 @@ def main():
         if running on nipponbare_otherfeatures, hash out existing_table and db.upload_external_synonym()
     """
     args = Database.parse_args()
-    db = Database(args.host, args.user, args.port, args.database, args.password) #Initialize Database object with user arguments from parse_args()
-    tb = PangeneMatrixProcessor("pangene_matrix_genes_transformed.tab") #Initialize Matrix 
-    matrix = tb.parse_pangene_matrix() #Read pangene matrix
+    db = Database(args.host, args.user, args.port, args.database, args.password) # initialize Database object with user arguments from parse_args()
+    tb = PangeneMatrixProcessor("pangene_matrix_genes_transformed.tab") # initialize Matrix 
+    matrix = tb.parse_pangene_matrix() # read pangene matrix
 
-    xref_table = db.get_xref_ids() #Generate xref_table containing gene_ids and xref_ids 
-    joined_table = tb.join_df(matrix, xref_table) #Join pangene matrix with xref_table
+    xref_table = db.get_xref_ids() # generate xref_table containing gene_ids and xref_ids 
+    joined_table = tb.join_df(matrix, xref_table) # join pangene matrix with xref_table
 
-    existing_table = db.get_existing_ids() #Generate existing table containing gene_ids and xref_ids for genes with existing xref_ids 
+    existing_table = db.get_existing_ids() # generate existing table containing gene_ids and xref_ids for genes with existing xref_ids 
             
-    existing_table_w_pangeneids = tb.join_df(existing_table, matrix) #Join pangene matrix with existing table generated in command above
+    existing_table_w_pangeneids = tb.join_df(existing_table, matrix) # join pangene matrix with existing table generated in command above
     
-    db.upload_xref_and_genes(xref_table)  #execute query to upload xref_ids and stable_ids to schema.xref, and update schema.gene
-    db.upload_external_synonym(joined_table) #execute query to upload xref_ids and pangene_ids into schema.external_synonym
-    db.upload_external_synonym(existing_table_w_pangeneids) #execute query to upload xref_ids and pangene_ids for stable_ids that already had an xref_id assigned to them into schema.external_synonym
+    db.upload_xref_and_genes(xref_table)  # execute query to upload xref_ids and stable_ids to schema.xref, and update schema.gene
+    db.upload_external_synonym(joined_table) # execute query to upload xref_ids and pangene_ids into schema.external_synonym
+    db.upload_external_synonym(existing_table_w_pangeneids) # execute query to upload xref_ids and pangene_ids for stable_ids that already had an xref_id assigned to them into schema.external_synonym
     
    
 if __name__ == "__main__":
