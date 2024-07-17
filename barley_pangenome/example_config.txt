@@ -1,0 +1,7 @@
+_ABBREV_        _PROD_NAME_     _DNA_FASTA_PATH_        _GFF_FASTA_PATH_        _INSDC_ACCESSION_        _ASM_URL_  
+# test species
+10TJ18  hordeum_vulgare_10TJ18  /nfs/production/flicek/ensembl/plants/species/Barley/fasta/10TJ18.fa    /nfs/production/flicek/ensembl/plants/species/Barley/gff/10tJ18.gff3    GCA_949783005.1
+aizu_6  hordeum_vulgare_aizu_6  /nfs/production/flicek/ensembl/plants/species/Barley/fasta/aizu_6.fa    /nfs/production/flicek/ensembl/plants/species/Barley/gff/aizu_6.gff3    GCA_949782985.1
+akashinriki     hordeum_vulgare_akashinrikin    /nfs/production/flicek/ensembl/plants/species/Barley/fasta/aizu_6.fa    /nfs/production/flicek/ensembl/plants/species/Barley/gff/akashinriki.gff3       GCA_949783095.1
+# cat _peanut_list | grep -vF '#' | grep -vP '^\s*$' | awk -F "\t" '{print NF}' | sort | uniq -c
+# python3 ../../../../ensembl-production-metazoa/scripts/tmpl2meta.py --template ../peanut.template --param_table _peanut_list  --output_dir . --out_file_pfx peanut.
