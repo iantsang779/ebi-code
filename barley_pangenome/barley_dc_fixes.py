@@ -5,12 +5,13 @@ class Database:
     def connect_to_db(self,database):
         try:
             connection=mysql.connector.connect(
-                host='mysql-ens-plants-prod-1',
-                user='ensro',
-                port=4243,
+                host='HOST',
+                user='USER',
+                port=PORT,
+                password='PASSWORD',
                 database=database
             )
-            #print(f"Connected to {database}")
+            print(f"Connected to {database}")
         except mysql.connector.Error as err:
             print(f"Error: {err}")
             
@@ -32,19 +33,15 @@ class Database:
         query = "SELECT meta_value FROM meta WHERE meta_key rlike 'species.production_name';"
         return query
     
-    def update_meta_query(self, database):
-        existing_value = self.execute_query(self.meta_query(), database)[0][0]
-        new_value = f'prepl_{existing_value}'
-        query = f"UPDATE meta SET meta_value = '{new_value}' WHERE meta_key = 'species.production_name';"
-        
+    
+    
+    def delete_assembly_insdc(self):
+        query = "DELETE FROM meta WHERE meta_key = 'assembly.accession_insdc';"
+
         return query
     
-    def update_organism_name_query(self):
-        query = "UPDATE meta SET meta_value = 'Hordeum vulgare' WHERE meta_key = 'organism.scientific_name';"
-        return query
-    
-    def update_species_name_query(self):
-        query = "UPDATE meta SET meta_value = 'Hordeum vulgare' WHERE meta_key = 'species.scientific_name';"
+    def delete_organism_ensembl_name(self):
+        query = "DELETE FROM meta WHERE meta_key = 'organism.ensembl_name';"
         return query
     
     def qc_biotype_query_gene(self):
@@ -161,12 +158,10 @@ class Database:
             
         for i in self.renamed_cultivar_list():
             self.connect_to_db(i)
-            print(self.update_meta_query(i))
-            #self.execute_query(self.update_meta_query())
-            print(self.update_organism_name_query())
-            #self.execute_query(self.update_organism_name_query())
-            print(self.update_species_name_query())
-            #self.execute_query(self.update_species_name_query())
+            print(self.delete_assembly_insdc())
+            self.execute_query(self.delete_assembly_insdc(), i)
+            print(self.delete_organism_ensembl_name())
+            self.execute_query(self.delete_organism_ensembl_name(), i)
     
     """ 
         Check gene, transcript, and non-translating CDS for each cultivar in schema.biotype
@@ -193,8 +188,8 @@ class Database:
 
 def main():
     db = Database()
-    #db.update_cultivars()
-    db.check_biotype()
+    db.update_cultivars()
+    #db.check_biotype()
     #db.rename_db()
     #db.renamed_cultivar_list()
     
