@@ -9,6 +9,8 @@ class Database:
     def __init__(self, host, user, port, database, password):
         self.database = database
         self.cv_dict = {
+                "Azucena": "oryza_sativa_gca009830595v1_core_110_1",
+                "Arc": "oryza_sativa_gca009831255v1_core_110_1",
                 "Chaomeo": "oryza_sativa_gca009831315v1_core_110_1", 
                 "Gobolsailbalam": "oryza_sativa_gca009831025v1_core_110_1", 
                 "IR64": "oryza_sativa_gca009914875v1_core_110_1", 
